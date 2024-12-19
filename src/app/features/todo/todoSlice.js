@@ -2,9 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // create todo slice
 export const todoSlice = createSlice({
-  name: "todo",
+  name: "todos",
   initialState: {
-    todoInt: null,
+    todos: [],
+    error: null,
+    message: null,
+    loader: false,
   },
   reducers: {},
 });
@@ -12,5 +15,5 @@ export const todoSlice = createSlice({
 // export actions
 // export const {} = todoSlice.actions;
 
-// export default
+// export default reducer
 export default todoSlice.reducer;
