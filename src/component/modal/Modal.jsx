@@ -25,7 +25,7 @@ const Modal = () => {
             <form className="flex flex-col gap-3" onSubmit={hangleTaskSubmit}>
               <label
                 className="text-xs mt-2 font-semibold text-slate-500"
-                for="task"
+                for="tasks"
               >
                 Task Name
               </label>
@@ -33,7 +33,7 @@ const Modal = () => {
                 className="border-2 p-2"
                 type="text"
                 placeholder="Task Name"
-                id="task"
+                id="tasks"
               />
               <label
                 className="text-xs mt-2 font-semibold text-slate-500"
