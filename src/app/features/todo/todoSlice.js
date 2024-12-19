@@ -11,7 +11,7 @@ export const todoSlice = createSlice({
     loader: false,
   },
   reducers: {
-    loadAllTodos: (state, action) => {
+    loadAllTodos: (state) => {
       state.todos = todos;
     },
   },
