@@ -23,7 +23,7 @@ const TaskTable = () => {
 
   useEffect(() => {
     dispatch(loadAllTodos());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
