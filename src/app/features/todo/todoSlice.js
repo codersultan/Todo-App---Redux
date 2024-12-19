@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { todos } from "../../../data/todos";
 
 // create todo slice
 export const todoSlice = createSlice({
@@ -9,11 +10,15 @@ export const todoSlice = createSlice({
     message: null,
     loader: false,
   },
-  reducers: {},
+  reducers: {
+    loadAllTodos: (state, action) => {
+      state.todos = todos;
+    },
+  },
 });
 
 // export actions
-// export const {} = todoSlice.actions;
+export const { loadAllTodos } = todoSlice.actions;
 
 // export default reducer
 export default todoSlice.reducer;

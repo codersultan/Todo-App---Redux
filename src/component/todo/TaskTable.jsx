@@ -3,6 +3,9 @@ import useToggle from "../../hook/useToggle";
 import Status from "../taskEdit/Status";
 import TaskName from "../taskEdit/taskName";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { loadAllTodos } from "../../app/features/todo/todoSlice";
 
 const TaskTable = () => {
   const {
@@ -15,6 +18,12 @@ const TaskTable = () => {
     hangleToggle: handleStatus,
     toggleRef: statusRef,
   } = useToggle();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadAllTodos());
+  }, []);
 
   return (
     <>
