@@ -69,9 +69,9 @@ const Modal = () => {
                 value={input.status}
                 id="status"
               >
-                <option value="pending">Pending</option>
-                <option value="pending">Processing</option>
-                <option value="pending">completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Completed">Completed</option>
               </select>
 
               <button

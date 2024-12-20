@@ -19,6 +19,8 @@ export const todoSlice = createSlice({
         ...action.payload,
         id: Math.floor(Math.random() * 100000),
       });
+
+      console.log(action.payload);
     },
     deleteTodos: (state, action) => {
       state.todos = state.todos.filter((data) => data.id != action.payload);

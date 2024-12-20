@@ -6,7 +6,7 @@ export const todos = [
   },
   {
     id: 2,
-    name: "Reduc assignment",
+    name: "Redux assignment",
     status: "Processing",
   },
   {
