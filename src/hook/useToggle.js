@@ -5,7 +5,7 @@ const useToggle = () => {
   const toggleRef = useRef();
 
   // toggle feature
-  const hangleToggle = () => {
+  const handleToggle = () => {
     setToggle(!toggle);
   };
 
@@ -27,7 +27,7 @@ const useToggle = () => {
     };
   }, []);
 
-  return { toggle, setToggle, toggleRef, hangleToggle };
+  return { toggle, setToggle, toggleRef, handleToggle };
 };
 
 export default useToggle;

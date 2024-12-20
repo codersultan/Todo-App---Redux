@@ -9,7 +9,7 @@ import TodoAcide from "./TodoAcide";
 
 const Todo = () => {
   //state
-  const { toggle, hangleToggle } = useToggle();
+  const { toggle, handleToggle } = useToggle();
 
   const { isDark, handleDark } = useDark();
 
@@ -78,7 +78,7 @@ const Todo = () => {
 
                 <div className="todo-add ">
                   <button
-                    onClick={hangleToggle}
+                    onClick={handleToggle}
                     title="Add Task"
                     className="p-3 border rounded-full text-xl bg-blue-600 hover:bg-blue-700 text-white absolute right-20 bottom-20"
                   >

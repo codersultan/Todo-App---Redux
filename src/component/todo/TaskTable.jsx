@@ -1,24 +1,25 @@
 import { FaCircleDot } from "react-icons/fa6";
-import useToggle from "../../hook/useToggle";
 import Status from "../taskEdit/Status";
 import TaskName from "../taskEdit/taskName";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTodos } from "../../app/features/todo/todoSlice";
 import Swal from "sweetalert2";
+import useTodoEdit from "../../hook/useTodoEdit";
+import { useState } from "react";
 
 const TaskTable = () => {
   // Toggle Hook state
   const {
-    toggle: isEdit,
-    hangleToggle: handleEdit,
-    toggleRef: editRef,
-  } = useToggle();
-  const {
-    toggle: isStatus,
-    hangleToggle: handleStatus,
+    edit: statusEdit,
+    handleTodoEdit: handleTodoEditStatus,
     toggleRef: statusRef,
-  } = useToggle();
+  } = useTodoEdit();
+  const {
+    edit: nameEdit,
+    handleTodoEdit: handleTodoEditName,
+    toggleRef: nameRef,
+  } = useTodoEdit();
 
   // Redux todo data
   const { todos } = useSelector((state) => state.tasklist);
@@ -29,11 +30,12 @@ const TaskTable = () => {
   // Todos Delete function
   const handleTodosDelete = (id) => {
     Swal.fire({
+      width: 400,
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You want to delete permanently!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#3b82f6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
@@ -41,12 +43,21 @@ const TaskTable = () => {
         dispatch(deleteTodos(id));
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: "Your task has been deleted.",
           icon: "success",
         });
       }
     });
   };
+
+  // Status based on item
+  const [todoId, setTodoId] = useState(null);
+
+  const handleTodoId = (id) => {
+    setTodoId(id);
+  };
+
+  // console.log(edit);
 
   return (
     <>
@@ -75,8 +86,11 @@ const TaskTable = () => {
                   <ul>
                     <li className="flex items-center gap-3">
                       <button
-                        onClick={handleStatus}
-                        ref={statusRef}
+                        onClick={() => {
+                          handleTodoEditName();
+                          handleTodoId(item.id);
+                        }}
+                        ref={nameRef}
                         className="p-1 text-slate-600 hover:bg-slate-300 rounded-md"
                       >
                         <FaCircleDot />
@@ -85,7 +99,7 @@ const TaskTable = () => {
                     </li>
                   </ul>
 
-                  {isStatus && <TaskName />}
+                  {nameEdit && todoId == item.id ? <TaskName /> : null}
                 </td>
 
                 <td className="py-2 px-4">
@@ -106,14 +120,18 @@ const TaskTable = () => {
 
                 <td className="py-2 px-4 relative">
                   <button
-                    onClick={handleEdit}
-                    ref={editRef}
+                    onClick={() => {
+                      handleTodoEditStatus();
+                      handleTodoId(item.id);
+                    }}
+                    ref={statusRef}
                     className="p-1.5 text-lg border text-black bg-slate-200 hover:bg-slate-300 rounded-md mr-3"
                   >
                     <FaRegEdit />
                   </button>
-
-                  {isEdit && <Status />}
+                  {statusEdit && todoId == item.id ? (
+                    <Status data={item} />
+                  ) : null}
 
                   <button
                     onClick={() => handleTodosDelete(item.id)}

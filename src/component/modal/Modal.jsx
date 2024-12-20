@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import useInput from "../../hook/useInput";
 import useToggle from "../../hook/useToggle";
 import { IoCloseOutline } from "react-icons/io5";
-import { createNewTodos, deleteTodos } from "../../app/features/todo/todoSlice";
+import { createNewTodos } from "../../app/features/todo/todoSlice";
 
 const Modal = () => {
   const { toggleRef } = useToggle();
