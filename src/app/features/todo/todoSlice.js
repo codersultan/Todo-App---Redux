@@ -19,18 +19,30 @@ export const todoSlice = createSlice({
         ...action.payload,
         id: Math.floor(Math.random() * 100000),
       });
-
-      console.log(action.payload);
     },
     deleteTodos: (state, action) => {
       state.todos = state.todos.filter((data) => data.id != action.payload);
     },
-    todoDataEdit: (state, action) => {},
+    todoStatusEdit: (state, action) => {
+      state.todos = state.todos.map((item) => {
+        if (item.id == action.payload.id) {
+          return {
+            ...item,
+            status: action.payload.status,
+          };
+        } else {
+          return item;
+        }
+      });
+
+      console.log(action.payload.status);
+    },
   },
 });
 
 // export actions
-export const { loadAllTodos, createNewTodos, deleteTodos } = todoSlice.actions;
+export const { loadAllTodos, createNewTodos, deleteTodos, todoStatusEdit } =
+  todoSlice.actions;
 
 // export default reducer
 export default todoSlice.reducer;

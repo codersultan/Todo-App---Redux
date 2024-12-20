@@ -57,8 +57,6 @@ const TaskTable = () => {
     setTodoId(id);
   };
 
-  // console.log(edit);
-
   return (
     <>
       <table className="table-fixed w-full text-left border bg-gray-100">
