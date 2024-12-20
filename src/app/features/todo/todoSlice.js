@@ -37,12 +37,29 @@ export const todoSlice = createSlice({
 
       console.log(action.payload.status);
     },
+    todoNameEdit: (state, action) => {
+      state.todos = state.todos.map((item) => {
+        if (item.id == action.payload.id) {
+          return {
+            ...item,
+            name: action.payload.name,
+          };
+        } else {
+          return item;
+        }
+      });
+    },
   },
 });
 
 // export actions
-export const { loadAllTodos, createNewTodos, deleteTodos, todoStatusEdit } =
-  todoSlice.actions;
+export const {
+  loadAllTodos,
+  createNewTodos,
+  deleteTodos,
+  todoStatusEdit,
+  todoNameEdit,
+} = todoSlice.actions;
 
 // export default reducer
 export default todoSlice.reducer;

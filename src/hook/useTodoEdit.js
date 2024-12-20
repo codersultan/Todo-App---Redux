@@ -27,7 +27,7 @@ const useTodoEdit = () => {
     };
   }, []);
 
-  return { edit, handleTodoEdit, toggleRef };
+  return { edit, setEdit, handleTodoEdit, toggleRef };
 };
 
 export default useTodoEdit;

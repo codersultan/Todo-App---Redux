@@ -15,6 +15,7 @@ const TaskTable = () => {
     handleTodoEdit: handleTodoEditStatus,
     toggleRef: statusRef,
   } = useTodoEdit();
+
   const {
     edit: nameEdit,
     handleTodoEdit: handleTodoEditName,
@@ -97,7 +98,9 @@ const TaskTable = () => {
                     </li>
                   </ul>
 
-                  {nameEdit && todoId == item.id ? <TaskName /> : null}
+                  {nameEdit && todoId == item.id ? (
+                    <TaskName data={item} />
+                  ) : null}
                 </td>
 
                 <td className="py-2 px-4">
