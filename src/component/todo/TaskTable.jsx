@@ -3,9 +3,9 @@ import useToggle from "../../hook/useToggle";
 import Status from "../taskEdit/Status";
 import TaskName from "../taskEdit/taskName";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { loadAllTodos } from "../../app/features/todo/todoSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteTodos } from "../../app/features/todo/todoSlice";
+import Swal from "sweetalert2";
 
 const TaskTable = () => {
   // Toggle Hook state
@@ -20,12 +20,33 @@ const TaskTable = () => {
     toggleRef: statusRef,
   } = useToggle();
 
-  // Load Data
+  // Redux todo data
+  const { todos } = useSelector((state) => state.tasklist);
+
+  // Reducer function
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(loadAllTodos());
-  }, [dispatch]);
+  // Todos Delete function
+  const handleTodosDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteTodos(id));
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -38,49 +59,72 @@ const TaskTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="py-2 px-4 relative">
-              <ul>
-                <li className="flex items-center gap-3">
-                  <button
-                    onClick={handleStatus}
-                    ref={statusRef}
-                    className="p-1 text-slate-600 hover:bg-slate-300 rounded-md"
-                  >
-                    <FaCircleDot />
-                  </button>
-                  MERN Stack
-                </li>
-              </ul>
-
-              {isStatus && <TaskName />}
-            </td>
-
-            <td className="py-2 px-4">
-              <button className="px-3 py-0.5 text-sm font-medium rounded-full border border-yellow-400 bg-yellow-500 hover:bg-yellow-600 text-white mr-3">
-                Panding
-              </button>
-              <button className="px-3 py-0.5 text-sm font-medium rounded-full border border-blue-400 bg-blue-500 hover:bg-blue-600 text-white">
-                Completed
-              </button>
-            </td>
-
-            <td className="py-2 px-4 relative">
-              <button
-                onClick={handleEdit}
-                ref={editRef}
-                className="p-1.5 text-lg border text-black bg-slate-200 hover:bg-slate-300 rounded-md mr-3"
+          {todos.map((item) => {
+            return (
+              <tr
+                key={item.id}
+                className={`border-b ${
+                  item.status === "Completed"
+                    ? "bg-green-50 hover:bg-green-100"
+                    : item.status === "Processing"
+                    ? "bg-blue-50 hover:bg-blue-100"
+                    : "bg-yellow-50 hover:bg-yellow-100"
+                }`}
               >
-                <FaRegEdit />
-              </button>
+                <td className="py-2 px-4 relative">
+                  <ul>
+                    <li className="flex items-center gap-3">
+                      <button
+                        onClick={handleStatus}
+                        ref={statusRef}
+                        className="p-1 text-slate-600 hover:bg-slate-300 rounded-md"
+                      >
+                        <FaCircleDot />
+                      </button>
+                      {item.name}
+                    </li>
+                  </ul>
 
-              {isEdit && <Status />}
+                  {isStatus && <TaskName />}
+                </td>
 
-              <button className="p-1.5 text-lg border text-black bg-slate-200 hover:bg-slate-300 rounded-md mr-3">
-                <FaRegTrashAlt />
-              </button>
-            </td>
-          </tr>
+                <td className="py-2 px-4">
+                  {item.status === "Completed" ? (
+                    <button className="px-3 py-0.5 text-sm font-medium rounded-full border border-green-400 bg-green-500 hover:bg-green-600 text-white mr-3">
+                      Completed
+                    </button>
+                  ) : item.status === "Processing" ? (
+                    <button className="px-3 py-0.5 text-sm font-medium rounded-full border border-blue-400 bg-blue-500 hover:bg-blue-600 text-white">
+                      Processing
+                    </button>
+                  ) : (
+                    <button className="px-3 py-0.5 text-sm font-medium rounded-full border border-yellow-400 bg-yellow-500 hover:bg-yellow-600 text-white mr-3">
+                      Pending
+                    </button>
+                  )}
+                </td>
+
+                <td className="py-2 px-4 relative">
+                  <button
+                    onClick={handleEdit}
+                    ref={editRef}
+                    className="p-1.5 text-lg border text-black bg-slate-200 hover:bg-slate-300 rounded-md mr-3"
+                  >
+                    <FaRegEdit />
+                  </button>
+
+                  {isEdit && <Status />}
+
+                  <button
+                    onClick={() => handleTodosDelete(item.id)}
+                    className="p-1.5 text-lg border text-black bg-slate-200 hover:bg-slate-300 rounded-md mr-3"
+                  >
+                    <FaRegTrashAlt />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </>

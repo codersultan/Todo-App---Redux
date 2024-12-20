@@ -1,12 +1,28 @@
+import { useDispatch } from "react-redux";
+import useInput from "../../hook/useInput";
 import useToggle from "../../hook/useToggle";
 import { IoCloseOutline } from "react-icons/io5";
+import { createNewTodos, deleteTodos } from "../../app/features/todo/todoSlice";
 
 const Modal = () => {
-  const { toggle, hangleToggle, toggleRef } = useToggle();
+  const { toggleRef } = useToggle();
+  const { input, setInput, handleInputChange } = useInput({
+    name: "",
+    status: "Pending",
+  });
+
+  const dispatch = useDispatch();
 
   // Form Submit
   const hangleTaskSubmit = (e) => {
     e.preventDefault();
+
+    dispatch(createNewTodos(input));
+
+    setInput({
+      name: "",
+      status: "",
+    });
   };
 
   return (
@@ -30,18 +46,29 @@ const Modal = () => {
                 Task Name
               </label>
               <input
+                required
+                onChange={handleInputChange}
                 className="border-2 p-2"
                 type="text"
+                name="name"
+                value={input.name}
                 placeholder="Task Name"
                 id="tasks"
               />
+
               <label
                 className="text-xs mt-2 font-semibold text-slate-500"
                 htmlFor="status"
               >
                 Status
               </label>
-              <select className="border-2 p-2" name="" id="status">
+              <select
+                onChange={handleInputChange}
+                className="border-2 p-2"
+                name="status"
+                value={input.status}
+                id="status"
+              >
                 <option value="pending">Pending</option>
                 <option value="pending">Processing</option>
                 <option value="pending">completed</option>

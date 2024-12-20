@@ -4,7 +4,7 @@ import todoReducer from "./features/todo/todoSlice";
 // create redux store
 const store = configureStore({
   reducer: {
-    todo: todoReducer,
+    tasklist: todoReducer,
   },
   middleware: (getDefualtMiddleware) => getDefualtMiddleware(),
   devTools: true,

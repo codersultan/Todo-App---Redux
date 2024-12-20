@@ -27,7 +27,7 @@ const useToggle = () => {
     };
   }, []);
 
-  return { toggle, toggleRef, hangleToggle };
+  return { toggle, setToggle, toggleRef, hangleToggle };
 };
 
 export default useToggle;
