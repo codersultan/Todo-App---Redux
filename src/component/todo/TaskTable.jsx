@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { loadAllTodos } from "../../app/features/todo/todoSlice";
 
 const TaskTable = () => {
+  // Toggle Hook state
   const {
     toggle: isEdit,
     hangleToggle: handleEdit,
@@ -19,6 +20,7 @@ const TaskTable = () => {
     toggleRef: statusRef,
   } = useToggle();
 
+  // Load Data
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -25,7 +25,7 @@ const Modal = () => {
             <form className="flex flex-col gap-3" onSubmit={hangleTaskSubmit}>
               <label
                 className="text-xs mt-2 font-semibold text-slate-500"
-                for="tasks"
+                htmlFor="tasks"
               >
                 Task Name
               </label>
@@ -37,7 +37,7 @@ const Modal = () => {
               />
               <label
                 className="text-xs mt-2 font-semibold text-slate-500"
-                for="status"
+                htmlFor="status"
               >
                 Status
               </label>

@@ -9,4 +9,9 @@ export const todos = [
     name: "Reduc assignment",
     status: "Processing",
   },
+  {
+    id: 3,
+    name: "Todo Design ",
+    status: "Completed",
+  },
 ];
